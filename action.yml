@@ -1,0 +1,38 @@
+name: "Setup Postgres AdventureWorksLT Database"
+description: "GitHub Action to setup Postgres AdventureWorksLT database"  
+branding:
+  icon: "database"
+  color: "yellow"
+inputs:
+  username:
+    description: "The username to create for the database"
+    required: false
+    default: "admin"
+  password:
+    description: "The password to use for the database user"
+    required: true
+  postgres_version:
+    description: "The version of Postgres to use (14/15/16/17/18)"
+    required: false
+    default: "18"
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Setup Postgres
+      uses: openentity/setup-postgres@v8
+      with:
+        database: "AdventureworksLT"
+        username: ${{ inputs.username }}
+        password: "${{ inputs.password }}"
+        postgres-version: "${{ inputs.postgres_version }}"
+      id: postgres  
+
+    - shell: pwsh
+      run: |
+       echo "Init AdventureWorksLT database..."
+
+       psql ${{ steps.postgres.outputs.connection-uri }} -f "${{ github.action_path }}/init/init.sql"
+
+       echo "Done init AdventureWorksLT database..."
