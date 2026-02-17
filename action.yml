@@ -33,6 +33,7 @@ runs:
       run: |
        echo "Init AdventureWorksLT database..."
 
-       psql "${{ steps.postgres.outputs.connection-uri }}" -f "${{ github.action_path }}/init/init.sql"
+       Set-Location "${{ github.action_path }}/init"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -f init.sql
 
        echo "Done init AdventureWorksLT database..."
