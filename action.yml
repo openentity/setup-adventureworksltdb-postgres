@@ -23,7 +23,7 @@ runs:
     - name: Setup Postgres
       uses: openentity/setup-postgres@v8
       with:
-        database: "AdventureworksLT"
+        database: "AdventureWorksLT"
         username: ${{ inputs.username }}
         password: "${{ inputs.password }}"
         postgres-version: "${{ inputs.postgres_version }}"
