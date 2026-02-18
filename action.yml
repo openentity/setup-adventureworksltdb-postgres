@@ -33,7 +33,16 @@ runs:
       run: |
        echo "Init AdventureWorksLT database..."
 
-       Set-Location "${{ github.action_path }}/init"
-       psql "${{ steps.postgres.outputs.connection-uri }}" -f init.sql
+       psql "${{ steps.postgres.outputs.connection-uri }}" -f "${{ github.action_path }}/init/init.sql"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"Address`" FROM '${{ github.action_path }}/init/SalesLT.Address.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"Customer`" FROM '${{ github.action_path }}/init/SalesLT.Customer.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"CustomerAddress`" FROM '${{ github.action_path }}/init/SalesLT.CustomerAddress.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"ProductCategory`" FROM '${{ github.action_path }}/init/SalesLT.ProductCategory.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"ProductModel`" FROM '${{ github.action_path }}/init/SalesLT.ProductModel.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"ProductDescription`" FROM '${{ github.action_path }}/init/SalesLT.ProductDescription.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"ProductModelProductDescription`" FROM '${{ github.action_path }}/init/SalesLT.ProductModelProductDescription.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"Product`" FROM '${{ github.action_path }}/init/SalesLT.Product.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"SalesOrderHeader`" FROM '${{ github.action_path }}/init/SalesLT.SalesOrderHeader.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
+       psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"SalesOrderDetail`" FROM '${{ github.action_path }}/init/SalesLT.SalesOrderDetail.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
 
        echo "Done init AdventureWorksLT database..."
