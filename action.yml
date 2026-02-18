@@ -45,4 +45,4 @@ runs:
        psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"SalesOrderHeader`" FROM '${{ github.action_path }}/init/SalesLT.SalesOrderHeader.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
        psql "${{ steps.postgres.outputs.connection-uri }}" -c "COPY `"SalesLT`".`"SalesOrderDetail`" FROM '${{ github.action_path }}/init/SalesLT.SalesOrderDetail.csv' WITH DELIMITER ',' NULL 'NULL' CSV HEADER"
 
-       echo "Done init AdventureWorksLT database..."
+       echo "Done init AdventureWorksLT database."
